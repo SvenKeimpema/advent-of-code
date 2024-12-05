@@ -4,7 +4,6 @@ if __name__ == "__main__":
     data = FileReader.read("day5/data.txt")
     next_idx = 0
     rules: dict[int, list[int]] = {}
-
     for idx, line in enumerate(data.split("\n")):
         if len(line) == 0:
             next_idx = idx+1
@@ -26,5 +25,17 @@ if __name__ == "__main__":
                 break
 
         if success:
-            res += nums[len(nums)//2]
+            continue
+        
+        occ = {}
+        for n in range(len(nums)):
+            other_nums = nums[:n] + nums[n+1 :]
+            c = 0
+            for o_num in other_nums:
+                if nums[n] in rules and o_num in rules[nums[n]]:
+                    c += 1
+            occ[nums[n]] = c
+
+        sort_occ = list({k: v for k, v in sorted(occ.items(), key=lambda item: item[1])}.keys())
+        res += sort_occ[len(sort_occ)//2]
     print(res)
