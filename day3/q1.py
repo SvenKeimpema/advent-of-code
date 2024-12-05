@@ -1,5 +1,4 @@
 from reader import FileReader
-import os
 
 if __name__ == "__main__":
     data = FileReader.read("day3/data.txt")
